@@ -1,8 +1,21 @@
 import { Request, Response } from 'express';
 
 let burritos = [
-    { id: '1', name: 'Chicken Burrito', size: 'regular', price: 3 },
-    { id: '2', name: 'Chicken Burrito', size: 'XL', price: 5 },
+    {
+        id: '1',
+        name: 'Bean and Cheese',
+        price: 5.99
+    },
+    {
+        id: '2',
+        name: 'Carne Asada',
+        price: 7.99
+    },
+    {
+        id: '3',
+        name: 'Carnitas',
+        price: 7.99
+    }
 ];
 
 export const getBurritos = (req: Request, res: Response) => {

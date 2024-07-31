@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.ts",
     "lint": "eslint 'src/**/*.{ts,js}'",
     "prettier": "prettier --write 'src/**/*.{ts,js}'",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "axios": "^1.7.2",

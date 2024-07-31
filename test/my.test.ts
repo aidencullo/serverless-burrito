@@ -1,12 +1,20 @@
-// test/dummy.test.ts
+import request from 'supertest';
+import express from 'express';
+import { getBurritos } from '../src/controllers/burritoController'; // Adjust import path
 
-describe('Dummy Function Test', () => {
-    // Define a simple function within the test file
-    const multiply = (a: number, b: number): number => {
-        return a * b;
-    };
+// Create an Express app instance
+const app = express();
+app.use(express.json());
+app.get('/api/burritos', getBurritos);
 
-    it('should correctly multiply two numbers', () => {
-        expect(multiply(3, 4)).toBe(12);
+describe('Burrito Controller - getBurritos', () => {
+    it('should return all burritos with status 200', async () => {
+        const response = await request(app).get('/api/burritos');
+
+        // Check the response status code
+        expect(response.status).toBe(200);
+
+        // Check the response body content
+        expect(response.body).toEqual([]);
     });
 });

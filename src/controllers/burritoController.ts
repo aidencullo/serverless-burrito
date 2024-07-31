@@ -4,6 +4,7 @@ let burritoIdCounter = 1;
 let burritos: any[] = [];
 
 export const getBurritos = (req: Request, res: Response) => {
+    console.log(burritos);
     res.json(burritos);
 };
 

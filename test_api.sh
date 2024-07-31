@@ -137,10 +137,10 @@ curl -X PUT "$BASE_URL/orders/$ORDER_ID" \
         "items": [
             {
                 "burritoId": "'$BURRITO_ID'",
-                "quantity": 3
+                "quantity": '$QUANTITY'
             }
         ],
-        "totalCost": 9
+        "totalCost": '$TOTAL_COST'
     }'
 
 echo

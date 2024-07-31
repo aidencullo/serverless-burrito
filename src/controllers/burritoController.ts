@@ -1,22 +1,7 @@
 import { Request, Response } from 'express';
 
-let burritos = [
-    {
-        id: '1',
-        name: 'Bean and Cheese',
-        price: 5.99
-    },
-    {
-        id: '2',
-        name: 'Carne Asada',
-        price: 7.99
-    },
-    {
-        id: '3',
-        name: 'Carnitas',
-        price: 7.99
-    }
-];
+let burritoIdCounter = 1;
+let burritos: any[] = [];
 
 export const getBurritos = (req: Request, res: Response) => {
     res.json(burritos);
@@ -33,11 +18,16 @@ export const getBurritoById = (req: Request, res: Response) => {
 
 export const createBurrito = (req: Request, res: Response) => {
     const newBurrito = req.body;
-    newBurrito.id = String(burritos.length + 1);
+
+    if (!newBurrito.name || !newBurrito.size || !newBurrito.price) {
+        return res.status(400).json({ error: 'Invalid burrito data' });
+    }
+
+    newBurrito.id = String(burritoIdCounter++);
     burritos.push(newBurrito);
+
     res.status(201).json(newBurrito);
 };
-
 export const updateBurrito = (req: Request, res: Response) => {
     const burritoIndex = burritos.findIndex(b => b.id === req.params.id);
     if (burritoIndex !== -1) {

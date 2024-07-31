@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 let orders: any[] = [];
+let orderIdCounter = 1;
 
 export const getOrders = (req: Request, res: Response) => {
     res.json(orders);
@@ -8,11 +9,14 @@ export const getOrders = (req: Request, res: Response) => {
 
 export const submitOrder = (req: Request, res: Response) => {
     const newOrder = req.body;
+
     if (!newOrder.items || !newOrder.totalCost) {
         return res.status(400).json({ error: 'Invalid order data' });
     }
-    newOrder.id = orders.length + 1;
+
+    newOrder.id = orderIdCounter++;
     orders.push(newOrder);
+
     res.status(201).json(newOrder);
 };
 

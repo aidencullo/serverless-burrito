@@ -1,34 +1,50 @@
 import { Request, Response } from 'express';
-import { Order } from '../models/order';
-import { OrderItem } from '../models/orderItem';
 
-let orders: Order[] = [];
-let nextId = 1;
+let orders: any[] = [];
 
 export const getOrders = (req: Request, res: Response) => {
-  res.json(orders);
+    res.json(orders);
 };
 
 export const submitOrder = (req: Request, res: Response) => {
-  const { items }: { items: OrderItem[] } = req.body;
-  const totalCost = items.reduce((sum, item) => sum + item.burrito.price * item.quantity, 0);
-
-  const newOrder: Order = {
-    id: nextId++,
-    items,
-    totalCost
-  };
-
-  orders.push(newOrder);
-  res.status(201).json(newOrder);
+    const newOrder = req.body;
+    if (!newOrder.items || !newOrder.totalCost) {
+        return res.status(400).json({ error: 'Invalid order data' });
+    }
+    newOrder.id = orders.length + 1;
+    orders.push(newOrder);
+    res.status(201).json(newOrder);
 };
 
 export const getOrderById = (req: Request, res: Response) => {
-  const { id } = req.params;
-  const order = orders.find(o => o.id === parseInt(id));
-  if (order) {
+    const { id } = req.params;
+    const order = orders.find(o => o.id === parseInt(id, 10));
+    if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+    }
     res.json(order);
-  } else {
-    res.status(404).json({ message: 'Order not found' });
-  }
+};
+
+export const updateOrder = (req: Request, res: Response) => {
+    const { id } = req.params;
+    const updatedOrder = req.body;
+    if (!updatedOrder.items || !updatedOrder.totalCost) {
+        return res.status(400).json({ error: 'Invalid order data' });
+    }
+    const index = orders.findIndex(o => o.id === parseInt(id, 10));
+    if (index === -1) {
+        return res.status(404).json({ error: 'Order not found' });
+    }
+    orders[index] = { id: parseInt(id, 10), ...updatedOrder };
+    res.json(orders[index]);
+};
+
+export const deleteOrder = (req: Request, res: Response) => {
+    const { id } = req.params;
+    const index = orders.findIndex(o => o.id === parseInt(id, 10));
+    if (index === -1) {
+        return res.status(404).json({ error: 'Order not found' });
+    }
+    orders.splice(index, 1);
+    res.status(204).send();
 };

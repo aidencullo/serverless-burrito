@@ -9,22 +9,7 @@ afterAll((done) => {
 
 describe('Burrito Controller - Endpoints', () => {
     it('should return an empty array from /api/burrito endpoint with status 200', async () => {
-        const burritos: any[] = [
-            {
-                id: 1,
-                name: 'Chicken Burrito',
-                size: 'Large',
-                price: 9.99,
-                toppings: [Topping.BlackOlives, Topping.Rice]
-            } as Burrito,
-            {
-                id: 2,
-                name: 'Beef Burrito',
-                size: 'Medium',
-                price: 7.99,
-                toppings: [Topping.SourCream]
-            } as Burrito,
-        ];
+        const burritos: any[] = [];
 
         const response = await request(app).get('/api/burrito');
         expect(response.statusCode).toBe(200);

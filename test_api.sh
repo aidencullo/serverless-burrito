@@ -1,15 +1,12 @@
 #!/bin/bash
 
-
 # Base URL for the API
 BASE_URL="http://localhost:3000/api"
 
-
 # Burrito API endpoints
 
-echo "--------------------------------------"
+# Create a new burrito
 echo "Creating a new burrito..."
-echo "--------------------------------------"
 curl -X POST "$BASE_URL/burrito" \
     -H "Content-Type: application/json" \
     -d '{
@@ -17,38 +14,17 @@ curl -X POST "$BASE_URL/burrito" \
         "size": "regular",
         "price": 3
     }'
-
-
 echo
 
-
-echo "--------------------------------------"
-echo "Listing all burritos..."
-echo "--------------------------------------"
-curl -X GET "$BASE_URL/burrito" \
-    -H "Accept: application/json"
-
-
-echo
-
-
-# Replace with the actual ID of the burrito you created
-BURRITO_ID="1"  # Change this ID based on your actual burrito ID
-
-
-echo "--------------------------------------"
+# Get details of a burrito (replace with actual ID)
+BURRITO_ID="1"
 echo "Getting details of burrito with ID $BURRITO_ID..."
-echo "--------------------------------------"
 curl -X GET "$BASE_URL/burrito/$BURRITO_ID" \
     -H "Accept: application/json"
-
-
 echo
 
-
-echo "--------------------------------------"
+# Update a burrito (replace with actual ID)
 echo "Updating burrito with ID $BURRITO_ID..."
-echo "--------------------------------------"
 curl -X PUT "$BASE_URL/burrito/$BURRITO_ID" \
     -H "Content-Type: application/json" \
     -d '{
@@ -56,35 +32,21 @@ curl -X PUT "$BASE_URL/burrito/$BURRITO_ID" \
         "size": "XL",
         "price": 5
     }'
-
-
 echo
 
-
-echo "--------------------------------------"
+# Delete a burrito (replace with actual ID)
 echo "Deleting burrito with ID $BURRITO_ID..."
-echo "--------------------------------------"
 curl -X DELETE "$BASE_URL/burrito/$BURRITO_ID" \
     -H "Accept: application/json"
-
-
 echo
-
 
 # Order API endpoints
 
-
-# Example Burrito ID (Replace with the actual ID after creating burritos)
-BURRITO_ID="1"  # Change this ID based on your actual burrito ID
-QUANTITY="2"    # Adjust quantity as needed
-
-# Calculate total cost based on burrito price and quantity (assuming $3 per burrito)
+# Create a new order (replace with actual Burrito ID and quantity)
+BURRITO_ID="1"
+QUANTITY="2"
 TOTAL_COST=$((3 * QUANTITY))
-
-# Create a new order
-echo "--------------------------------------"
 echo "Submitting a new order..."
-echo "--------------------------------------"
 curl -X POST "$BASE_URL/orders" \
     -H "Content-Type: application/json" \
     -d '{
@@ -96,41 +58,17 @@ curl -X POST "$BASE_URL/orders" \
         ],
         "totalCost": '$TOTAL_COST'
     }'
-
-
 echo
 
-
-# List all orders
-echo "--------------------------------------"
-echo "Listing all orders..."
-echo "--------------------------------------"
-curl -X GET "$BASE_URL/orders" \
-    -H "Accept: application/json"
-
-
-echo
-
-
-# Replace with the actual ID of the order you submitted
-ORDER_ID="1"  # Change this ID based on your actual order ID
-
-
-# Get details of a specific order
-echo "--------------------------------------"
+# Get details of an order (replace with actual ID)
+ORDER_ID="1"
 echo "Getting details of order with ID $ORDER_ID..."
-echo "--------------------------------------"
 curl -X GET "$BASE_URL/orders/$ORDER_ID" \
     -H "Accept: application/json"
-
-
 echo
 
-
-# Update a specific order (Replace with actual order ID and modify as needed)
-echo "--------------------------------------"
+# Update an order (replace with actual ID)
 echo "Updating order with ID $ORDER_ID..."
-echo "--------------------------------------"
 curl -X PUT "$BASE_URL/orders/$ORDER_ID" \
     -H "Content-Type: application/json" \
     -d '{
@@ -142,13 +80,10 @@ curl -X PUT "$BASE_URL/orders/$ORDER_ID" \
         ],
         "totalCost": '$TOTAL_COST'
     }'
-
 echo
 
-
-# Delete a specific order (Replace with actual order ID)
-echo "--------------------------------------"
+# Delete an order (replace with actual ID)
 echo "Deleting order with ID $ORDER_ID..."
-echo "--------------------------------------"
 curl -X DELETE "$BASE_URL/orders/$ORDER_ID" \
     -H "Accept: application/json"
+echo

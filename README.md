@@ -25,3 +25,5 @@ Install
 Tests done through simple `curl` calls you can inspect in the [test_api.sh](test_api.sh).
 
 `./test_api.sh`
+
+Note because the burrito/order ids are hardcoded in the script, but follow a global counter in the controller, this will only work when the server first starts up (and there are 0 burritos)

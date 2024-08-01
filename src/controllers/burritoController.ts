@@ -3,22 +3,7 @@ import { Burrito } from '../models/burrito';
 import { Topping } from '../models/topping';
 
 let burritoIdCounter = 1;
-let burritos: any[] = [
-    {
-        id: burritoIdCounter++,
-        name: 'Chicken Burrito',
-        size: 'Large',
-        price: 9.99,
-        toppings: [Topping.BlackOlives, Topping.Rice]
-    } as Burrito,
-    {
-        id: burritoIdCounter++,
-        name: 'Beef Burrito',
-        size: 'Medium',
-        price: 7.99,
-        toppings: [Topping.SourCream]
-    } as Burrito,
-];
+let burritos: any[] = [];
 
 export const getBurritos = (req: Request, res: Response) => {
     res.json(burritos);

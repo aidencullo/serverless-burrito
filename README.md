@@ -20,3 +20,8 @@ Install
 
 ### run docker instance
 `docker run -p 3000:3000 my-node-ts-server`
+
+### Manual tests
+Tests done through simple `curl` calls you can inspect in the [test_api.sh](test_api.sh).
+
+`./test_api.sh`

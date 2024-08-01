@@ -1,7 +1,7 @@
-import { OrderItem } from './orderItem';
+import { Item } from './item';
 
 export interface Order {
-  id: number;
-  items: OrderItem[];
-  totalCost: number;
+    id: number;
+    items: Item[];
+    totalCost: number;
 }

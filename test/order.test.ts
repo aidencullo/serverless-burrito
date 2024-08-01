@@ -15,7 +15,7 @@ describe('Order Controller - Endpoints', () => {
         expect(response.body).toEqual([]);
     });
 
-    it('should submit a new order with toppings and return it with status 201', async () => {
+    it('should submit a new order and return it with status 201', async () => {
         const newOrder = {
             items: [
                 {
@@ -24,10 +24,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Chicken Burrito',
                         size: 'Large',
                         price: 9.99,
-                        toppings: [
-                            { name: 'Black Olives' },
-                            { name: 'Rice' }
-                        ] // Example toppings
+                        toppings: [Topping.BlackOlives, Topping.Rice]
                     } as Burrito,
                     quantity: 2
                 } as Item
@@ -43,7 +40,7 @@ describe('Order Controller - Endpoints', () => {
         expect(response.body.id).toBeDefined();
     });
 
-    it('should return an order by ID with toppings and status 200', async () => {
+    it('should return an order by ID with status 200', async () => {
         const newOrder = {
             items: [
                 {
@@ -52,9 +49,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Beef Burrito',
                         size: 'Medium',
                         price: 7.99,
-                        toppings: [
-                            { name: 'Sour Cream' }
-                        ] // Example topping
+                        toppings: [Topping.SourCream]
                     } as Burrito,
                     quantity: 1
                 } as Item
@@ -78,7 +73,7 @@ describe('Order Controller - Endpoints', () => {
         expect(response.body).toEqual({ error: 'Order not found' });
     });
 
-    it('should update an order with new toppings and return it with status 200', async () => {
+    it('should update an order and return it with status 200', async () => {
         const newOrder = {
             items: [
                 {
@@ -87,10 +82,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Veggie Burrito',
                         size: 'Small',
                         price: 5.99,
-                        toppings: [
-                            { name: 'Black Olives' },
-                            { name: 'Rice' }
-                        ] // Example toppings
+                        toppings: [Topping.BlackOlives]
                     } as Burrito,
                     quantity: 3
                 } as Item
@@ -110,10 +102,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Veggie Burrito',
                         size: 'Small',
                         price: 5.99,
-                        toppings: [
-                            { name: 'Black Olives' },
-                            { name: 'Sour Cream' } // Updated topping
-                        ] // Example updated toppings
+                        toppings: [Topping.BlackOlives, Topping.Rice]
                     } as Burrito,
                     quantity: 4
                 } as Item
@@ -137,9 +126,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Fish Burrito',
                         size: 'Large',
                         price: 8.99,
-                        toppings: [
-                            { name: 'Rice' }
-                        ] // Example topping
+                        toppings: [Topping.SourCream]
                     } as Burrito,
                     quantity: 2
                 } as Item
@@ -163,9 +150,7 @@ describe('Order Controller - Endpoints', () => {
                         name: 'Pork Burrito',
                         size: 'Medium',
                         price: 6.99,
-                        toppings: [
-                            { name: 'Sour Cream' }
-                        ] // Example topping
+                        toppings: [Topping.Rice]
                     } as Burrito,
                     quantity: 1
                 } as Item

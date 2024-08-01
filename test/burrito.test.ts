@@ -1,5 +1,7 @@
 import request from 'supertest';
 import { app, server } from '../src/index';
+import { Burrito } from '../src/models/burrito';
+import { Topping } from '../src/models/topping';
 
 afterAll((done) => {
     server.close(done);
@@ -7,9 +9,26 @@ afterAll((done) => {
 
 describe('Burrito Controller - Endpoints', () => {
     it('should return an empty array from /api/burrito endpoint with status 200', async () => {
+        const burritos: any[] = [
+            {
+                id: 1,
+                name: 'Chicken Burrito',
+                size: 'Large',
+                price: 9.99,
+                toppings: [Topping.BlackOlives, Topping.Rice]
+            } as Burrito,
+            {
+                id: 2,
+                name: 'Beef Burrito',
+                size: 'Medium',
+                price: 7.99,
+                toppings: [Topping.SourCream]
+            } as Burrito,
+        ];
+
         const response = await request(app).get('/api/burrito');
         expect(response.statusCode).toBe(200);
-        expect(response.body).toEqual([]);
+        expect(response.body).toEqual(burritos);
     });
 
     it('should create a new burrito and return it with status 201', async () => {

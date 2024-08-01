@@ -11,10 +11,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY src ./src
 COPY tsconfig.json ./
+COPY .env ./
 
 # Build the TypeScript code
 RUN npm run build
 
 # Expose the port and set the command
 EXPOSE 3000
-CMD ["node", "dist/src/index.js"]
+CMD ["npm", "start"]

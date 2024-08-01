@@ -4,13 +4,19 @@ import { Item } from '../src/models/item';
 import { Burrito } from '../src/models/burrito';
 import { Topping } from '../src/models/topping';
 
+const API_KEY = 'c7f9e8d1e6a3b1c2d4a5f7e9c0b1a2d3e4f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u';
+const AUTH_HEADER = `Bearer ${API_KEY}`;
+
 afterAll((done) => {
     server.close(done);
 });
 
 describe('Order Controller - Endpoints', () => {
     it('should return an empty array from /api/orders endpoint with status 200', async () => {
-        const response = await request(app).get('/api/orders');
+        const response = await request(app)
+            .get('/api/orders')
+            .set('Authorization', AUTH_HEADER);
+
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual([]);
     });
@@ -33,6 +39,7 @@ describe('Order Controller - Endpoints', () => {
         };
         const response = await request(app)
             .post('/api/orders')
+            .set('Authorization', AUTH_HEADER)
             .send(newOrder);
 
         expect(response.statusCode).toBe(201);
@@ -58,17 +65,23 @@ describe('Order Controller - Endpoints', () => {
         };
         const createResponse = await request(app)
             .post('/api/orders')
+            .set('Authorization', AUTH_HEADER)
             .send(newOrder);
 
         const orderId = createResponse.body.id;
-        const response = await request(app).get(`/api/orders/${orderId}`);
+        const response = await request(app)
+            .get(`/api/orders/${orderId}`)
+            .set('Authorization', AUTH_HEADER);
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toMatchObject(newOrder);
     });
 
     it('should return 404 if order not found', async () => {
-        const response = await request(app).get('/api/orders/999');
+        const response = await request(app)
+            .get('/api/orders/999')
+            .set('Authorization', AUTH_HEADER);
+
         expect(response.statusCode).toBe(404);
         expect(response.body).toEqual({ error: 'Order not found' });
     });
@@ -91,6 +104,7 @@ describe('Order Controller - Endpoints', () => {
         };
         const createResponse = await request(app)
             .post('/api/orders')
+            .set('Authorization', AUTH_HEADER)
             .send(newOrder);
 
         const orderId = createResponse.body.id;
@@ -111,6 +125,7 @@ describe('Order Controller - Endpoints', () => {
         };
         const response = await request(app)
             .put(`/api/orders/${orderId}`)
+            .set('Authorization', AUTH_HEADER)
             .send(updatedOrder);
 
         expect(response.statusCode).toBe(200);
@@ -135,6 +150,7 @@ describe('Order Controller - Endpoints', () => {
         };
         const response = await request(app)
             .put('/api/orders/999')
+            .set('Authorization', AUTH_HEADER)
             .send(updatedOrder);
 
         expect(response.statusCode).toBe(404);
@@ -159,16 +175,22 @@ describe('Order Controller - Endpoints', () => {
         };
         const createResponse = await request(app)
             .post('/api/orders')
+            .set('Authorization', AUTH_HEADER)
             .send(newOrder);
 
         const orderId = createResponse.body.id;
-        const response = await request(app).delete(`/api/orders/${orderId}`);
+        const response = await request(app)
+            .delete(`/api/orders/${orderId}`)
+            .set('Authorization', AUTH_HEADER);
 
         expect(response.statusCode).toBe(204);
     });
 
     it('should return 404 if deleting a non-existent order', async () => {
-        const response = await request(app).delete('/api/orders/999');
+        const response = await request(app)
+            .delete('/api/orders/999')
+            .set('Authorization', AUTH_HEADER);
+
         expect(response.statusCode).toBe(404);
         expect(response.body).toEqual({ error: 'Order not found' });
     });

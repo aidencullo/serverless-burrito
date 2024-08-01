@@ -2,19 +2,19 @@ import express from 'express';
 import burritoRoutes from './routes/burritoRoutes';
 import orderRoutes from './routes/orderRoutes';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
-// import { verifyToken } from './middleware/verifyToken';
+import { verifyToken } from './middleware/verifyToken';
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/api', burritoRoutes);
+app.use(verifyToken);
 
+app.use('/api', burritoRoutes);
 app.use('/api', orderRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
-// app.use(verifyToken);
 
 const port = process.env.PORT || 3000;
 
